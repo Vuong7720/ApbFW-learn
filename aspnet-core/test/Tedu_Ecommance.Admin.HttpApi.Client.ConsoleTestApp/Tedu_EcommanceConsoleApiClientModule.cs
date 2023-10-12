@@ -10,7 +10,7 @@ namespace Tedu_Ecommance.Admin.HttpApi.Client.ConsoleTestApp;
 
 [DependsOn(
     typeof(AbpAutofacModule),
-    typeof(Tedu_EcommanceHttpApiClientModule),
+    typeof(Tedu_EcommanceAdminHttpApiClientModule),
     typeof(AbpHttpClientIdentityModelModule)
     )]
 public class Tedu_EcommanceConsoleApiClientModule : AbpModule

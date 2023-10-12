@@ -25,9 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tedu_Ecommance.Admin.Application\Tedu_Ecommance.Application.csproj" />
+    <ProjectReference Include="..\Tedu_Ecommance.Admin.Application\Tedu_Ecommance.Admin.Application.csproj" />
     <ProjectReference Include="..\Tedu_Ecommance.EntityFrameworkCore\Tedu_Ecommance.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\Tedu_Ecommance.Admin.HttpApi\Tedu_Ecommance.HttpApi.csproj" />
+    <ProjectReference Include="..\Tedu_Ecommance.Admin.HttpApi\Tedu_Ecommance.Admin.HttpApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

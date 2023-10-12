@@ -19,7 +19,7 @@ namespace Tedu_Ecommance.Admin;
     typeof(AbpFeatureManagementHttpApiClientModule),
     typeof(AbpSettingManagementHttpApiClientModule)
 )]
-public class Tedu_EcommanceHttpApiClientModule : AbpModule
+public class Tedu_EcommanceAdminHttpApiClientModule : AbpModule
 {
     public const string RemoteServiceName = "Default";
 
@@ -32,7 +32,7 @@ public class Tedu_EcommanceHttpApiClientModule : AbpModule
 
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
-            options.FileSets.AddEmbedded<Tedu_EcommanceHttpApiClientModule>();
+            options.FileSets.AddEmbedded<Tedu_EcommanceAdminHttpApiClientModule>();
         });
     }
 }

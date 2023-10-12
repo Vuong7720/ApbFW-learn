@@ -2,7 +2,7 @@
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
-namespace Tedu_Ecommance.Permissions;
+namespace Tedu_Ecommance.Admin.Permissions;
 
 public class Tedu_EcommancePermissionDefinitionProvider : PermissionDefinitionProvider
 {

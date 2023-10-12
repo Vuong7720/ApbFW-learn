@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tedu_Ecommance.HttpApi.Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tedu_Ecommance.DbMigrator", "src\Tedu_Ecommance.DbMigrator\Tedu_Ecommance.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{7E89ECC0-7A2C-440C-A075-48E56FA7BA82}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "auth", "auth", "{7E89ECC0-7A2C-440C-A075-48E56FA7BA82}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{28083C69-33F3-41E2-9DCD-306CB2EACE8D}"
 EndProject

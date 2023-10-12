@@ -51,6 +51,9 @@ public class Tedu_EcommanceDbContext :
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
+
+    // Ecomance-------------------------------------------------------
+    
     #endregion
 
     public Tedu_EcommanceDbContext(DbContextOptions<Tedu_EcommanceDbContext> options)

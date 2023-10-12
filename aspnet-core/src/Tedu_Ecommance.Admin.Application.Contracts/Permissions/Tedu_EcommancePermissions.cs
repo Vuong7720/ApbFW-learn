@@ -1,4 +1,4 @@
-﻿namespace Tedu_Ecommance.Permissions;
+﻿namespace Tedu_Ecommance.Admin.Permissions;
 
 public static class Tedu_EcommancePermissions
 {

@@ -28,7 +28,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
 
-namespace  Tedu_Ecommance.Admin;
+namespace Tedu_Ecommance.Admin;
 
 [DependsOn(
     typeof(Tedu_EcommanceAdminHttpApiHostModule),

@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace TeduEcommance.Migrations
 {
     [DbContext(typeof(Tedu_EcommanceDbContext))]
-    [Migration("20231011015529_Initial")]
-    partial class Initial
+    [Migration("20231011073321_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

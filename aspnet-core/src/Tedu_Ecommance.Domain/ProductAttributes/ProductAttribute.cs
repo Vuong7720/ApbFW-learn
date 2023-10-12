@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Tedu_Ecommance.Attributes
+namespace Tedu_Ecommance.ProductAttributes
 {
-    public class Attribute : CreationAuditedAggregateRoot<Guid>
+    public class ProductAttribute : CreationAuditedAggregateRoot<Guid>
     {
         public string Code { get; set; }
         public AttributeType AttributeType { get; set; }

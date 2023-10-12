@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tedu_Ecommance.Attributes
+namespace Tedu_Ecommance.ProductAttributes
 {
     public enum AttributeType
     {

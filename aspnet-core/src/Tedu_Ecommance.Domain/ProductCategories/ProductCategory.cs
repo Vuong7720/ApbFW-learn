@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tedu_Ecommance.ProductCategories
 {
-    internal class ProductCategory : CreationAuditedAggregateRoot<Guid>
+    public class ProductCategory : CreationAuditedAggregateRoot<Guid>
     {
         public string Name { get; set; }
         public string Code { get; set; }

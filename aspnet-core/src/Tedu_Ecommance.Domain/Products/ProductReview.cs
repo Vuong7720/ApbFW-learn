@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tedu_Ecommance.Products
 {
-    internal class ProductReview : CreationAuditedEntity<Guid>
+    public class ProductReview : CreationAuditedEntity<Guid>
     {
         public Guid ProductId { get; set; }
         public Guid? ParentId { get; set; }

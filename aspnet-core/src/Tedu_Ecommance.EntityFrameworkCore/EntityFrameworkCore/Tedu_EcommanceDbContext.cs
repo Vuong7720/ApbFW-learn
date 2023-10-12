@@ -1,4 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tedu_Ecommance.ProductAttributes;
+using Tedu_Ecommance.Inventories;
+using Tedu_Ecommance.InventoryTickets;
+using Tedu_Ecommance.ManuFacturers;
+using Tedu_Ecommance.Orders;
+using Tedu_Ecommance.ProductCategories;
+using Tedu_Ecommance.Products;
+using Tedu_Ecommance.Promotions;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -12,6 +20,9 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Tedu_Ecommance.Configurations.ProductAttributes;
+using Tedu_Ecommance.Configurations.Orders;
+using Tedu_Ecommance.Configurations.Products;
 
 namespace Tedu_Ecommance.EntityFrameworkCore;
 
@@ -53,8 +64,33 @@ public class Tedu_EcommanceDbContext :
 
 
     // Ecomance-------------------------------------------------------
-    
+    public DbSet<ProductAttribute> ProductAttribute { get; set; }
+    public DbSet<Inventory> Inventories { get; set; }
+    public DbSet<InventoryTicket> InventoryTickets { get; set; }
+    public DbSet<InventoryTicketItems> InventoryTicketItems { get; set; }
+    public DbSet<ManuFacturer> ManuFacturers { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItems> OrderItems { get; set; }
+    public DbSet<OrderTransactions> orderTransactions { get; set; }
+    public DbSet<ProductCategory> ProductCategories { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductAttributeDateTime> ProductAttributeDateTimes { get; set; }
+    public DbSet<ProductAttributeDecimal> ProductAttributeDecimals { get; set; }
+    public DbSet<ProductAttributeInt> productAttributeInts { get; set; }
+    public DbSet<ProductAttributeText> productAttributeTexts { get; set; }
+    public DbSet<ProductAttributeVarchar> ProductAttributeVarchars { get; set; }
+    public DbSet<ProductLinks> ProductLinks { get; set; }
+    public DbSet<ProductReview> ProductReviews { get; set; }
+    public DbSet<ProductTags> productTags { get; set; }
+    public DbSet<Tags> Tags { get; set; }
+    public DbSet<Promotion> Promotions { get; set; }
+    public DbSet<PromotionCategories> promotionCategories { get; set; }
+    public DbSet<PromotionManufactures> promotionManufactures { get; set; }
+    public DbSet<PromotionProducts> promotionProducts { get; set; }
+    public DbSet<PromotionUsageHistories> promotionUsageHistories { get; set; }
+
     #endregion
+
 
     public Tedu_EcommanceDbContext(DbContextOptions<Tedu_EcommanceDbContext> options)
         : base(options)
@@ -79,11 +115,27 @@ public class Tedu_EcommanceDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(Tedu_EcommanceConsts.DbTablePrefix + "YourEntities", Tedu_EcommanceConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.ApplyConfiguration(new InventoryConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeConfiguration());
+        builder.ApplyConfiguration(new InventoryTicketConfiguration());
+        builder.ApplyConfiguration(new InventoryTicketItemConfiguration());
+        builder.ApplyConfiguration(new ManuFacturerConfiguration());
+        builder.ApplyConfiguration(new OrderConfiguration());
+        builder.ApplyConfiguration(new OrderItemConfiguration());
+        builder.ApplyConfiguration(new OrderTransactionConfiguration());
+        builder.ApplyConfiguration(new ProductCategoryConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeDateTimeConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeDecimalConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeIntConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeTextConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeVarcharConfiguration());
+        builder.ApplyConfiguration(new ProductLinkConfiguration());
+        builder.ApplyConfiguration(new ProductReviewConfiguration());
+        builder.ApplyConfiguration(new ProductTagConfiguration());
+        builder.ApplyConfiguration(new TagConfiguration());
+        builder.ApplyConfiguration(new PromotionCategoryConfiguration());
+        builder.ApplyConfiguration(new PromotionManuFacturerConfiguration());
+        builder.ApplyConfiguration(new PromotionProductConfiguration());
+        builder.ApplyConfiguration(new PromotionUsageHistoryConfiguration());
     }
 }

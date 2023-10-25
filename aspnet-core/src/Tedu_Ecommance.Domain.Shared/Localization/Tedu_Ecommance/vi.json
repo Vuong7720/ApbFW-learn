@@ -1,8 +1,16 @@
 {
   "culture": "vi",
+
   "texts": {
-    "Menu:Home": "Trang chủ",
-    "Welcome": "Chào mừng bạn",
-    "LongWelcomeMessage": "Chào mừng bạn đến ứng dụng. Đây là một dự án khởi nghiệp dựa trên khung ABP. Để biết thêm thông tin, hãy truy cập abp.io."
+    "Tedu_EcomanceCatalog": "Quản lý sản phẩm",
+    "Permission:Catalog.Product": "Sản phẩm",
+    "Permission:Catalog.Product.Create": "Tạo mới sản phẩm",
+    "Permission:Catalog.Product.Update": "Chỉnh sửa sản phẩm",
+    "Permission:Catalog.Product.Delete": "Xóa sản phẩm",
+    "Permission:Catalog.Product.AttributeManage": "Quản lý thuộc tính sản phẩm",
+    "Permission:Catalog.Attribute": "Thuộc tính",
+    "Permission:Catalog.Attribute.Create": "Tạo mới thuộc tính",
+    "Permission:Catalog.Attribute.Update": "Chỉnh sửa thuộc tính",
+    "Permission:Catalog.Attribute.Delete": "Xóa thuộc tính"
   }
 }

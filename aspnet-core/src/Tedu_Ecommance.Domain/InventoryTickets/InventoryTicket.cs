@@ -9,7 +9,7 @@ namespace Tedu_Ecommance.InventoryTickets
 {
     public class InventoryTicket : AuditedAggregateRoot<Guid>
     {
-        public string Code { get; set; }
+        public string? Code { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public TicketType TicketType { get; set; }
         public Guid ApproverId { get; set; }

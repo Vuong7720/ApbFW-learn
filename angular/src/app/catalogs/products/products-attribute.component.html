@@ -1,0 +1,63 @@
+<form [formGroup]="form" skipValidation (ngSubmit)="saveChange()">
+  <div class="grid">
+    <div class="col-3">
+     <div class="field">
+      <p-dropdown [options]="attributes" 
+      formControlName="attributeId" 
+      placeholder="Chọn thuộc tính"
+      [showClear]="true"
+      autoWidth="false" 
+      [style]="{'width':'100%'}"
+      (onChange)="selectAttribute($event)"
+       ></p-dropdown>
+     </div>
+    </div>
+
+    <div class="col-3">
+      <div class="field">
+        <p-calendar  formControlName="dateTimeValue" [hidden]="!showDateTimeControl"></p-calendar>
+        <p-inputNumber formControlName="intValue" [hidden]="!showIntControl"></p-inputNumber>
+        <p-inputNumber formControlName="decimalValue" mode="decimal" [hidden]="!showDecimalControl"></p-inputNumber>
+        <input type="text" pInputText formControlName="textValue" [hidden]="!showTextControl" class="w-full">
+        <input type="text" pInputText formControlName="vacharValue" [hidden]="!showVarcharControl" class="w-full">
+      </div>
+    </div>
+
+    <div class="col-3">
+      <button type="button" [disabled]="!form.valid" (click)="saveChange()" pButton>Thêm</button>
+    </div>
+  </div>
+</form>
+<!-- //table---------- -->
+<p-table #pnl [value]="productAttributes" dataKey="id" selectionMode="multiple">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Mã</th>
+      <th>Tên thuộc tính</th>
+      <th>Kiểu dữ liệu</th>
+      <th>Giá trị</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td>{{row.code}}</td>
+      <td>{{ row.lable }}</td>
+      <td>{{ getAttributeTypeName( row.attributeType) }}</td>
+      <td>{{getValueByType(row,row.attributeType)}}</td>
+      <td>{{row.value}}</td>
+      <td>
+        <button type="button" pButton pRipple 
+          (click)="removeItem(row)" icon="fa fa-trash"
+          iconPos="left" class="p-button-text"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Button -->
+
+<!-- BlockUI -->
+    <p-blockUI [blocked]="blockedPanel">
+      <p-progressSpinner></p-progressSpinner>
+    </p-blockUI>

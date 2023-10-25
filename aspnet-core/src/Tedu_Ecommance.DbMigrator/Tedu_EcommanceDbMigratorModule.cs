@@ -16,6 +16,6 @@ public class Tedu_EcommanceDbMigratorModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Tedu_Ecommance:"; });
+        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Migrations:"; });
     }
 }

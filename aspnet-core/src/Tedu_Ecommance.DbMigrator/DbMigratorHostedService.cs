@@ -7,6 +7,7 @@ using Tedu_Ecommance.Data;
 using Serilog;
 using Volo.Abp;
 using Volo.Abp.Data;
+using Tedu_Ecommance.Seeding;
 
 namespace Tedu_Ecommance.DbMigrator;
 
@@ -37,6 +38,11 @@ public class DbMigratorHostedService : IHostedService
                 .ServiceProvider
                 .GetRequiredService<Tedu_EcommanceDbMigrationService>()
                 .MigrateAsync();
+
+            await application
+               .ServiceProvider
+               .GetRequiredService<IdentityDataSeeder>()
+               .SeedAsync("Admin@gmail.com", "vuong7720");
 
             await application.ShutdownAsync();
 

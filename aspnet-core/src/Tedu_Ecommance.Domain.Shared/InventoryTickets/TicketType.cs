@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tedu_Ecommance.InventoryTickets
+﻿namespace Tedu_Ecommance.InventoryTickets
 {
     public enum TicketType
     {
-        Import,
-        Export
+        Import = 1,
+        Export = 2
     }
 }

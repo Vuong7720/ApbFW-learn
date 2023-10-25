@@ -23,6 +23,7 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Tedu_Ecommance.Configurations.ProductAttributes;
 using Tedu_Ecommance.Configurations.Orders;
 using Tedu_Ecommance.Configurations.Products;
+using Tedu_Ecommance.IdentitySettings;
 
 namespace Tedu_Ecommance.EntityFrameworkCore;
 
@@ -57,6 +58,7 @@ public class Tedu_EcommanceDbContext :
     public DbSet<IdentitySecurityLog> SecurityLogs { get; set; }
     public DbSet<IdentityLinkUser> LinkUsers { get; set; }
     public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
+    
 
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
@@ -88,6 +90,7 @@ public class Tedu_EcommanceDbContext :
     public DbSet<PromotionManufactures> promotionManufactures { get; set; }
     public DbSet<PromotionProducts> promotionProducts { get; set; }
     public DbSet<PromotionUsageHistories> promotionUsageHistories { get; set; }
+    public DbSet<IdentitySetting> IdentitySettings { get; set; }
 
     #endregion
 

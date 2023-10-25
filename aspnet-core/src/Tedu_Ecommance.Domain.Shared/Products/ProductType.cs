@@ -6,11 +6,11 @@ namespace Tedu_Ecommance.Products
 {
     public enum ProductType
     {
-        Single,
-        Grouped,
-        Configurable,
-        Bundle,
-        Virtual,
-        Dowloadable,
+        Single = 1,
+        Grouped = 2,
+        Configurable = 3,
+        Bundle = 4,
+        Virtual = 5,
+        Dowloadable=6,
     }
 }

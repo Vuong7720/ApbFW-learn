@@ -9,11 +9,11 @@ namespace Tedu_Ecommance.Orders
 {
     public class OrderTransactions :CreationAuditedAggregateRoot<Guid>
     {
-        public string Code { get; set; }
+        public string? Code { get; set; }
         public Guid OrderId { get; set; }
         public Guid? UserId { get; set; }
         public TransactionType TransactionType { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
       
 
     }

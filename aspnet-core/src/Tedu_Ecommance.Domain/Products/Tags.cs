@@ -10,6 +10,6 @@ namespace Tedu_Ecommance.Products
 {
     public class Tags : Entity<string>
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,16 +27,21 @@ using Volo.Abp.DistributedLocking;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.Localization;
+using FluentValidation;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace Tedu_Ecommance.Admin;
 
 [DependsOn(
-    typeof(Tedu_EcommanceAdminHttpApiHostModule),
+    typeof(Tedu_EcommanceHttpApiModule),
     typeof(AbpAutofacModule),
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpDistributedLockingModule),
     typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
-    typeof(Tedu_EcommanceApplicationContractsModule),
+    typeof(Tedu_EcommanceAdminApplicationModule),
     typeof(Tedu_EcommanceEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
@@ -50,12 +55,24 @@ public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
 
         ConfigureConventionalControllers();
         ConfigureAuthentication(context, configuration);
+        ConfigureLocalization();
         ConfigureCache(configuration);
         ConfigureVirtualFileSystem(context);
         ConfigureDataProtection(context, configuration, hostingEnvironment);
         ConfigureDistributedLocking(context, configuration);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
+    }
+
+    private void ConfigureLocalization()
+    {
+        Configure<AbpLocalizationOptions>(options =>
+        {
+           
+            options.Languages.Add(new LanguageInfo("en", "en", "English"));
+            options.Languages.Add(new LanguageInfo("vi", "vi", "Tiếng việt"));
+
+        });
     }
 
     private void ConfigureCache(IConfiguration configuration)
@@ -80,7 +97,7 @@ public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<Tedu_EcommanceApplicationContractsModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
                         $"..{Path.DirectorySeparatorChar}Tedu_Ecommance.Admin.Application.Contracts"));
-                options.FileSets.ReplaceEmbeddedByPhysical<Tedu_EcommanceAdminHttpApiHostModule>(
+                options.FileSets.ReplaceEmbeddedByPhysical<Tedu_EcommanceAdminApplicationModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
                         $"..{Path.DirectorySeparatorChar}Tedu_Ecommance.Admin.Application"));
             });
@@ -91,7 +108,7 @@ public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
     {
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
-            options.ConventionalControllers.Create(typeof(Tedu_EcommanceApplicationContractsModule).Assembly);
+            options.ConventionalControllers.Create(typeof(Tedu_EcommanceAdminApplicationModule).Assembly);
         });
     }
 
@@ -103,6 +120,10 @@ public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
                 options.Audience = "Tedu_Ecommance.Admin";
+                options.TokenValidationParameters = new TokenValidationParameters(){
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                };
             });
     }
 
@@ -175,7 +196,22 @@ public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
         {
             app.UseDeveloperExceptionPage();
         }
+        var supportedCultures = new[]
+         {
+                new CultureInfo("vi")
+            };
 
+        app.UseAbpRequestLocalization(options =>
+        {
+            options.DefaultRequestCulture = new RequestCulture("vi");
+            options.SupportedCultures = supportedCultures;
+            options.SupportedUICultures = supportedCultures;
+            options.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new QueryStringRequestCultureProvider(),
+                    new CookieRequestCultureProvider()
+                };
+        });
         app.UseAbpRequestLocalization();
         app.UseCorrelationId();
         app.UseStaticFiles();
@@ -197,7 +233,7 @@ public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
 
             var configuration = context.GetConfiguration();
             options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
-            options.OAuthScopes("Tedu_Ecommance");
+            options.OAuthScopes("Tedu_Ecommance.Admin");
         });
 
         app.UseAuditing();

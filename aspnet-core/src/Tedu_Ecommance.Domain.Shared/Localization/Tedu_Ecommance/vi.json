@@ -8,9 +8,20 @@
     "Permission:Catalog.Product.Update": "Chỉnh sửa sản phẩm",
     "Permission:Catalog.Product.Delete": "Xóa sản phẩm",
     "Permission:Catalog.Product.AttributeManage": "Quản lý thuộc tính sản phẩm",
+
     "Permission:Catalog.Attribute": "Thuộc tính",
     "Permission:Catalog.Attribute.Create": "Tạo mới thuộc tính",
     "Permission:Catalog.Attribute.Update": "Chỉnh sửa thuộc tính",
-    "Permission:Catalog.Attribute.Delete": "Xóa thuộc tính"
+    "Permission:Catalog.Attribute.Delete": "Xóa thuộc tính",
+
+    "Permission:Catalog.Manufacture": "Nhà sản xuất",
+    "Permission:Catalog.Manufacture.Create": "Tạo mới nhà sản xuất",
+    "Permission:Catalog.Manufacture.Update": "Chỉnh sửa nhà sản xuất",
+    "Permission:Catalog.Manufacture.Delete": "Xóa nhà sản xuất",
+
+    "Permission:Catalog.Category": "Danh mục sản phẩm",
+    "Permission:Catalog.Category.Create": "Tạo mới danh mục",
+    "Permission:Catalog.Category.Update": "Chỉnh sửa danh mục",
+    "Permission:Catalog.Category.Delete": "Xóa danh mục"
   }
 }

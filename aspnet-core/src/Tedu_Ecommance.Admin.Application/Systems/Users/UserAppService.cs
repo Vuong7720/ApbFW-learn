@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using Volo.Abp.Identity;
 
 namespace Tedu_Ecommance.Admin.Systems.Users
 {
+    [Authorize(IdentityPermissions.Roles.Default, Policy = "AdminOnly")]
     public class UserAppService : CrudAppService<
         IdentityUser,
         UserDto,
@@ -27,14 +29,21 @@ namespace Tedu_Ecommance.Admin.Systems.Users
             IdentityUserManager identityUserManager) : base(repository)
         {
             _identityUserManager = identityUserManager;
+
+            GetPolicyName = IdentityPermissions.Users.Default;
+            GetListPolicyName = IdentityPermissions.Users.Default;
+            CreatePolicyName = IdentityPermissions.Users.Create;
+            UpdatePolicyName = IdentityPermissions.Users.Update;
+            DeletePolicyName = IdentityPermissions.Users.Delete;    
         }
 
+        [Authorize(IdentityPermissions.Users.Delete)]
         public async Task DeleteMultipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
             await UnitOfWorkManager.Current.SaveChangesAsync();
         }
-
+        [Authorize(IdentityPermissions.Users.Default)]
         public async Task<List<UserInlistDto>> GetListAllAsync(string filterKeyword)
         {
             var query = await Repository.GetQueryableAsync();
@@ -47,7 +56,7 @@ namespace Tedu_Ecommance.Admin.Systems.Users
             var data = await AsyncExecuter.ToListAsync(query);
             return ObjectMapper.Map<List<IdentityUser>, List<UserInlistDto>>(data);
         }
-
+        [Authorize(IdentityPermissions.Users.Default)]
         public async Task<PagedResultDto<UserInlistDto>> GetListWithFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();
@@ -68,6 +77,7 @@ namespace Tedu_Ecommance.Admin.Systems.Users
             var users = ObjectMapper.Map<List<IdentityUser>, List<UserInlistDto>>(data);
             return new PagedResultDto<UserInlistDto>(totalCount, users);
         }
+        [Authorize(IdentityPermissions.Users.Create)]
         public async override Task<UserDto> CreateAsync(CreateUserDto input)
         {
             var query = await Repository.GetQueryableAsync();
@@ -105,7 +115,7 @@ namespace Tedu_Ecommance.Admin.Systems.Users
             }
         }
 
-
+        [Authorize(IdentityPermissions.Users.Update)]
         public async override Task<UserDto> UpdateAsync(Guid id, UpdateUserDto input)
         {
             var user = await _identityUserManager.FindByIdAsync(id.ToString());
@@ -133,6 +143,7 @@ namespace Tedu_Ecommance.Admin.Systems.Users
                 throw new UserFriendlyException(errors);
             }
         }
+        [Authorize(IdentityPermissions.Users.Default)]
         public async override Task<UserDto> GetAsync(Guid id)
         {
             var user = await _identityUserManager.FindByIdAsync(id.ToString());
@@ -145,7 +156,7 @@ namespace Tedu_Ecommance.Admin.Systems.Users
             userDto.Roles = roles;
             return userDto;
         }
-
+        [Authorize(IdentityPermissions.Users.Update)]
         public async Task AssignRoleAsync(Guid userId, string[] roleName)
         {
             var user = await _identityUserManager.FindByIdAsync(userId.ToString());
@@ -163,6 +174,28 @@ namespace Tedu_Ecommance.Admin.Systems.Users
                 var errorList = new List<Microsoft.AspNetCore.Identity.IdentityError>();
                 errorList.AddRange(addedErrorList);
                 errorList.AddRange(removedErrorList);
+                string errors = "";
+
+                foreach (var error in errorList)
+                {
+                    errors = errors + error.Description.ToString();
+                }
+                throw new UserFriendlyException(errors);
+            }
+        }
+        [Authorize(IdentityPermissions.Users.Update)]
+        public async Task SetPasswordAsync(Guid userId, SetPasswordDto input)
+        {
+            var user = await _identityUserManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new EntityNotFoundException(typeof(IdentityUser), userId);
+            }
+            var token = await _identityUserManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _identityUserManager.ResetPasswordAsync(user,token,input.NewPassword);
+            if (!result.Succeeded)
+            {
+                List<Microsoft.AspNetCore.Identity.IdentityError> errorList = result.Errors.ToList();
                 string errors = "";
 
                 foreach (var error in errorList)

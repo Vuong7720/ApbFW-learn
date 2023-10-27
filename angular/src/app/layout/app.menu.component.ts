@@ -26,7 +26,8 @@ export class AppMenuComponent implements OnInit {
 
                     {
                         label: 'Danh sách sản phẩm', icon: 'pi pi-fw pi-bookmark',
-                        routerLink: ['/catalog/products']
+                        routerLink: ['/catalog/products'],
+                        permissions:'Tedu_EcomanceCatalog.Product'
                     },
                 ]
             },
@@ -36,7 +37,8 @@ export class AppMenuComponent implements OnInit {
 
                     {
                         label: 'Danh sách thuộc tính', icon: 'pi pi-fw pi-circle',
-                        routerLink: ['/catalog/attribute']
+                        routerLink: ['/catalog/attribute'],
+                        permissions:'Tedu_EcomanceCatalog.Attribute'
                     },
                 ]
             },
@@ -46,11 +48,13 @@ export class AppMenuComponent implements OnInit {
 
                     {
                         label: 'Danh sách quyền', icon: 'pi pi-fw pi-circle',
-                        routerLink: ['/system/role']
+                        routerLink: ['/system/role'],
+                        permissions:'AbpIdentity.Roles'
                     },
                     {
                         label: 'Danh sách người dùng', icon: 'pi pi-fw pi-circle',
-                        routerLink: ['/system/user']
+                        routerLink: ['/system/user'],
+                        permissions:'AbpIdentity.Users'
                     },
                 ]
             },

@@ -25,4 +25,21 @@ public static class Tedu_EcommancePermissions
         public const string Update = Default + ".Update";
         public const string Delete = Default + ".Delete";
     }
+
+    public static class Manufacture
+    {
+        public const string Default = CatalogGroupName + ".MaManufacture";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class Category
+    {
+        public const string Default = CatalogGroupName + ".Category";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
+    }
+
 }

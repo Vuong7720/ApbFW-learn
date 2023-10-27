@@ -8,10 +8,11 @@ using Tedu_Ecommance.ManuFacturers;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Tedu_Ecommance.Admin.Permissions;
 
 namespace Tedu_Ecommance.Admin.Catalogs.Manufacturers
 {
-    [Authorize]
+    [Authorize(Tedu_EcommancePermissions.Manufacture.Default, Policy="AdminOnly")]
     public class ManufacturersAppService : CrudAppService<
         ManuFacturer,
         ManufacturerDto,
@@ -23,14 +24,20 @@ namespace Tedu_Ecommance.Admin.Catalogs.Manufacturers
         public ManufacturersAppService(IRepository<ManuFacturer, Guid> repository)
             : base(repository)
         {
+            GetPolicyName = Tedu_EcommancePermissions.Manufacture.Default;
+            GetListPolicyName = Tedu_EcommancePermissions.Manufacture.Default;
+            CreatePolicyName = Tedu_EcommancePermissions.Manufacture.Create;
+            UpdatePolicyName = Tedu_EcommancePermissions.Manufacture.Update;
+            DeletePolicyName = Tedu_EcommancePermissions.Manufacture.Delete;
         }
-
+        [Authorize(Tedu_EcommancePermissions.Manufacture.Delete)]
         public async Task DeleteMutipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
             await UnitOfWorkManager.Current.SaveChangesAsync();
         }
 
+        [Authorize(Tedu_EcommancePermissions.Manufacture.Default)]
         public async Task<List<ManufacturerInListDto>> GetListAllAsync()
         {
             var query = await Repository.GetQueryableAsync();
@@ -41,6 +48,7 @@ namespace Tedu_Ecommance.Admin.Catalogs.Manufacturers
 
         }
 
+        [Authorize(Tedu_EcommancePermissions.Manufacture.Default)]
         public async Task<PagedResultDto<ManufacturerInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();

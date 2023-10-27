@@ -20,6 +20,17 @@ public class Tedu_EcommancePermissionDefinitionProvider : PermissionDefinitionPr
         productPermistion.AddChild(Tedu_EcommancePermissions.Product.Delete, L("Permission:Catalog.Product.Delete"));
         productPermistion.AddChild(Tedu_EcommancePermissions.Product.AttributeManage, L("Permission:Catalog.Product.AttributeManage"));
 
+        //Add manufacture
+        var manufacturePermission = catalogGroup.AddPermission(Tedu_EcommancePermissions.Manufacture.Default, L("Permission:Catalog.Manufacture"));
+        manufacturePermission.AddChild(Tedu_EcommancePermissions.Manufacture.Create, L("Permission:Catalog.Manufacture.Create"));
+        manufacturePermission.AddChild(Tedu_EcommancePermissions.Manufacture.Update, L("Permission:Catalog.Manufacture.Update"));
+        manufacturePermission.AddChild(Tedu_EcommancePermissions.Manufacture.Delete, L("Permission:Catalog.Manufacture.Delete"));
+
+        //Add category
+        var categoriPermission = catalogGroup.AddPermission(Tedu_EcommancePermissions.Category.Default, L("Permission:Catalog.Category"));
+        categoriPermission.AddChild(Tedu_EcommancePermissions.Category.Create, L("Permission:Catalog.Category.Create"));
+        categoriPermission.AddChild(Tedu_EcommancePermissions.Category.Update, L("Permission:Catalog.Category.Update"));
+        categoriPermission.AddChild(Tedu_EcommancePermissions.Category.Delete, L("Permission:Catalog.Category.Delete"));
 
         //Add attribute
         var attributePermistion = catalogGroup.AddPermission(Tedu_EcommancePermissions.Attribute.Default, L("Permission:Catalog.Attribute"));

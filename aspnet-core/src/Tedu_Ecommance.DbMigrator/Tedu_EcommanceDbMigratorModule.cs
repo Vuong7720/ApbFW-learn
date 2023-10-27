@@ -1,4 +1,5 @@
-﻿using Tedu_Ecommance.EntityFrameworkCore;
+﻿using Tedu_Ecommance.Admin;
+using Tedu_Ecommance.EntityFrameworkCore;
 using Volo.Abp.Autofac;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;

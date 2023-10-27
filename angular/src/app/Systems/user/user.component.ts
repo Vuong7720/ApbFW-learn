@@ -8,6 +8,7 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 import { UserDetailComponent } from './user-detail.component';
 import { UserDto, UserInlistDto, UserService } from '@proxy/systems/users';
 import { RoleAssignComponent } from './role-assign.component';
+import { SetPasswordComponent } from './set-password.component';
 
 @Component({
   selector: 'app-user',
@@ -145,23 +146,23 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
-  // setPassword(id: string) {
-  //   const ref = this.dialogService.open(SetPasswordComponent, {
-  //     data: {
-  //       id: id,
-  //     },
-  //     header: 'Đặt lại mật khẩu',
-  //     width: '70%',
-  //   });
+  setPassword(id: string) {
+    const ref = this.dialogService.open(SetPasswordComponent, {
+      data: {
+        id: id,
+      },
+      header: 'Đặt lại mật khẩu',
+      width: '70%',
+    });
 
-  //   ref.onClose.subscribe((result: boolean) => {
-  //     if (result) {
-  //       this.notificationService.showSucces(MessageConstants.CHANGE_PASSWORD_SUCCCESS_MSG);
-  //       this.selectedItems = [];
-  //       this.loadData();
-  //     }
-  //   });
-  // }
+    ref.onClose.subscribe((result: boolean) => {
+      if (result) {
+        this.notificationService.showSucces(MessageConstants.CHANGE_PASSWORD_SUCCCESS_MSG);
+        this.selectedItems = [];
+        this.loadData();
+      }
+    });
+  }
   
   assignRole(id: string) {
     const ref = this.dialogService.open(RoleAssignComponent, {

@@ -32,6 +32,7 @@ using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Tedu_Ecommance.Admin;
 
@@ -48,6 +49,14 @@ namespace Tedu_Ecommance.Admin;
 )]
 public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
 {
+
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        PreConfigure<IdentityBuilder>(builder =>
+        {
+            builder.AddDefaultTokenProviders();
+        });
+    }
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var configuration = context.Services.GetConfiguration();
@@ -125,6 +134,10 @@ public class Tedu_EcommanceAdminHttpApiHostModule : AbpModule
                     ValidateIssuer = false,
                 };
             });
+        context.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+        });
     }
 
     private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)

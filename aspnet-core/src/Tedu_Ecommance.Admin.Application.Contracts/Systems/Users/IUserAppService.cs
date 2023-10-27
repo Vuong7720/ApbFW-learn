@@ -19,5 +19,6 @@ namespace Tedu_Ecommance.Admin.Systems.Users
         Task<PagedResultDto<UserInlistDto>> GetListWithFilterAsync(BaseListFilterDto input);
         Task<List<UserInlistDto>> GetListAllAsync(string  filterKeyword);
         Task AssignRoleAsync(Guid userId, string[] roleName);
+        Task SetPasswordAsync(Guid userId, SetPasswordDto input);
     }
 }

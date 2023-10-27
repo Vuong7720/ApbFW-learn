@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Tedu_Ecommance.Roles;
 using Volo.Abp;
@@ -14,13 +12,13 @@ using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
-using Volo.Abp.Localization;
-using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SimpleStateChecking;
+using Tedu_Ecommance.Admin.Permissions;
 
 namespace Tedu_Ecommance.Admin.Systems.Roles
 {
+    [Authorize(IdentityPermissions.Roles.Default, Policy = "AdminOnly")]
     public class RoleAppService : CrudAppService<
        IdentityRole,
        RoleDto,
@@ -46,13 +44,21 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
             PermissionManager = permissionManager;
             PermissionDefinitionManager = permissionDefinitionManager;
             SimpleStateCheckerManager = simpleStateCheckerManager;
+
+            GetPolicyName = IdentityPermissions.Roles.Default;
+            GetListPolicyName = IdentityPermissions.Roles.Default;
+            CreatePolicyName = IdentityPermissions.Roles.Create;
+            UpdatePolicyName = IdentityPermissions.Roles.Update;
+            DeletePolicyName = IdentityPermissions.Roles.Delete;
         }
+
+        [Authorize(IdentityPermissions.Roles.Delete)]
         public async Task DeleteMutipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
             await UnitOfWorkManager.Current.SaveChangesAsync();
         }
-
+        [Authorize(IdentityPermissions.Roles.Default)]
         public async Task<List<RoleInListDto>> GetListAllAsync()
         {
             var query = await Repository.GetQueryableAsync();
@@ -60,7 +66,7 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
 
             return ObjectMapper.Map<List<IdentityRole>, List<RoleInListDto>>(data);
         }
-
+        [Authorize(IdentityPermissions.Roles.Default)]
         public async Task<PagedResultDto<RoleInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();
@@ -71,7 +77,7 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
 
             return new PagedResultDto<RoleInListDto>(totalCount, ObjectMapper.Map<List<IdentityRole>, List<RoleInListDto>>(data));
         }
-
+        [Authorize(IdentityPermissions.Roles.Create)]
         public async override Task<RoleDto> CreateAsync(CreateUpdateRoleDto input)
         {
             var query = await Repository.GetQueryableAsync();
@@ -87,6 +93,7 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
             await UnitOfWorkManager.Current.SaveChangesAsync();
             return ObjectMapper.Map<IdentityRole, RoleDto>(data);
         }
+        [Authorize(IdentityPermissions.Roles.Update)]
         public async override Task<RoleDto> UpdateAsync(Guid id, CreateUpdateRoleDto input)
         {
             var role = await Repository.GetAsync(id);
@@ -103,7 +110,6 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
             await UnitOfWorkManager.Current.SaveChangesAsync();
             return ObjectMapper.Map<IdentityRole, RoleDto>(data);
         }
-
 
 
         public virtual async Task<GetPermissionListResultDto> GetPermissionsAsync(string providerName, string providerKey)
@@ -185,7 +191,7 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
                 GrantedProviders = new List<ProviderInfoDto>()
             };
         }
-
+ 
         private PermissionGroupDto CreatePermissionGroupDto(PermissionGroupDefinition group)
         {
 
@@ -196,7 +202,7 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
                 Permissions = new List<PermissionGrantInfoDto>()
             };
         }
-
+        
         public virtual async Task UpdatePermissionsAsync(string providerName, string providerKey, UpdatePermissionsDto input)
         {
             await CheckProviderPolicy(providerName);
@@ -206,7 +212,7 @@ namespace Tedu_Ecommance.Admin.Systems.Roles
                 await PermissionManager.SetAsync(permissionDto.Name, providerName, providerKey, permissionDto.IsGranted);
             }
         }
-
+    
         protected virtual async Task CheckProviderPolicy(string providerName)
         {
             var policyName = Options.ProviderPolicies.GetOrDefault(providerName);
